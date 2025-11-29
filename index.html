@@ -21,5 +21,201 @@
    <p style="color:white;font-size:4px;">--------------------------------------------------------------- </p>
   <img src="7.gif" alt="GolemKlonVIII _2" style="width:800px;height:150px;">
 
+
+<div style="width:400px;height:400px;background:black;color:lime;padding:10px;font-family:monospace;overflow:auto;">
+  <pre id="terminal">
+GolemKlonVIII Terminal [Versin 24_57_.88888.2023|
+(c) golemklonVIII. All rights reserved.
+
+  </pre>
+</div>
+
+<script>
+(function(){
+  const container = document.getElementById('terminal');
+
+  // create a line function that returns elements for prompt/input/cursor
+  function createPromptLine(){
+    const line = document.createElement('div');
+    line.style.whiteSpace = 'pre'; // preserve spacing inside the div
+
+    const prompt = document.createElement('span');
+    prompt.textContent = 'Go:\\Users\\You>';
+    line.appendChild(prompt);
+
+    const input = document.createElement('span');
+    input.id = 'inputSpan';
+    input.textContent = '';
+    line.appendChild(input);
+
+    const cursor = document.createElement('span');
+    cursor.id = 'cursor';
+    cursor.textContent = '█';
+    line.appendChild(cursor);
+
+    container.appendChild(line);
+    // keep view scrolled
+    container.parentElement.scrollTop = container.parentElement.scrollHeight;
+    return {line, prompt, input, cursor};
+  }
+
+  // initial prompt
+  let {line, prompt, input, cursor} = createPromptLine();
+  let buffer = '';
+  let locked = false;
+
+  // blinking cursor (toggle visibility)
+  setInterval(() => {
+    if (cursor) cursor.style.visibility = (cursor.style.visibility === 'hidden') ? 'visible' : 'hidden';
+  }, 500);
+
+  // utility: append an output block (typewriter inside)
+  function appendOutput(text, cb){
+    locked = true;
+    const outLine = document.createElement('div');
+    outLine.style.whiteSpace = 'pre-wrap';
+    container.appendChild(outLine);
+    container.parentElement.scrollTop = container.parentElement.scrollHeight;
+
+    let i = 0;
+    (function step(){
+      if(i < text.length){
+        outLine.textContent += text[i++];
+        container.parentElement.scrollTop = container.parentElement.scrollHeight;
+        setTimeout(step, 30);
+      } else {
+        locked = false;
+        cb && cb();
+      }
+    })();
+  }
+
+  // prepare a fresh prompt line (keeps cursor element consistent)
+  function newPrompt(){
+    // remove old cursor id to avoid duplicates
+    if (cursor) cursor.id = '';
+    ({line, prompt, input, cursor} = createPromptLine());
+    buffer = '';
+  }
+
+  // process commands
+  function runCommand(cmd){
+    cmd = (cmd||'').trim().toLowerCase();
+    if (!cmd){
+      newPrompt();
+      return;
+    }
+
+    if (cmd === 'help'){
+      appendOutput(
+`enter 1 for ::: about
+enter 2 for ::: LoRa Training
+enter 3 for ::: create safetensors
+enter 4 for ::: merging safetensors
+enter 5 for ::: other links
+`, newPrompt);
+      return;
+    }
+
+    if (cmd === '1'){
+      appendOutput(
+`ABOUT:
+GolemKlonVIII — experimental synthetic assistant.
+Firmware v24_57; diagnostics nominal.
+Proprietary modules active.
+`, newPrompt);
+      return;
+    }
+
+    if (cmd === '2'){
+      appendOutput(
+`LoRa Training:
+Simulated LoRa mesh engaged.
+Epoch cycles: 128
+Loss: 0.0031 (fictional)
+`, newPrompt);
+      return;
+    }
+
+    if (cmd === '3'){
+      appendOutput(
+`Create Safetensors:
+Initializing safeEncoder...
+Packing weights into sealed safetensor file.
+Filename: safetensor_001.safetensor (fictional)
+`, newPrompt);
+      return;
+    }
+
+    if (cmd === '4'){
+      appendOutput(
+`Merging Safetensors:
+Loading shards...
+Aligning weight matrices...
+Merge complete. Integrity: OK
+`, newPrompt);
+      return;
+    }
+
+    if (cmd === '5'){
+      appendOutput(
+`Other Links:
+- HoloArchive (fictional)
+- GolemNet Node Index
+- DeepForge Console
+`, newPrompt);
+      return;
+    }
+
+    // unknown
+    appendOutput(`Unrecognized command: ${cmd}
+Type 'help' for options.
+`, newPrompt);
+  }
+
+  // keyboard handling
+  window.addEventListener('keydown', function(e){
+    if (locked) return;
+
+    // ignore keys if there is no input span (should not happen)
+    if (!input || !cursor) return;
+
+    // printable characters
+    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey){
+      buffer += e.key;
+      input.textContent = buffer;
+      container.parentElement.scrollTop = container.parentElement.scrollHeight;
+      e.preventDefault();
+      return;
+    }
+
+    if (e.key === 'Backspace'){
+      buffer = buffer.slice(0,-1);
+      input.textContent = buffer;
+      e.preventDefault();
+      return;
+    }
+
+    if (e.key === 'Enter'){
+      // freeze the cursor briefly and run command
+      cursor.style.visibility = 'visible';
+      runCommand(buffer);
+      e.preventDefault();
+      return;
+    }
+
+    // optional: allow arrows, etc. (ignored here)
+  });
+
+  // ensure terminal has focus for key events (click to focus)
+  container.parentElement.tabIndex = 0;
+  container.parentElement.addEventListener('click', () => container.parentElement.focus());
+  container.parentElement.focus();
+})();
+</script>
+
+
+
+  
 </body>
 </html>
