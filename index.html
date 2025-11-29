@@ -23,16 +23,16 @@
 
 
 <div id="terminalBox" style="width:400px;height:400px;background:black;color:lime;padding:10px;font-family:monospace;overflow:auto;">
-<pre id="terminal">
+  <pre id="terminal">
 GolemKlonVIII Terminal [Versin 24_57_.88888.2023|
-(c) golemklonVIII. All rights reserved.
+(c) GolemKlonVIII. All rights reserved.
 
-</pre>
+  </pre>
 </div>
 
-<!-- Input now visible on mobile, still transparent -->
+<!-- Hidden input field positioned at the bottom of the terminal -->
 <input id="mobileInput" autocomplete="off" autocorrect="off" autocapitalize="off"
-style="opacity:0; position:absolute; left:-9999px; top:-9999px;">
+style="opacity:0; position:absolute; bottom:0; width:100%; background:none; color:lime; border:none; font-family:monospace;">
 
 <script>
 (function(){
@@ -192,15 +192,14 @@ Type 'help' for options.
   // clicking the terminal activates the input and shows the keyboard
   box.addEventListener("click", () => {
     mobileInput.style.opacity = "1";  // Show the hidden input to focus it
-    mobileInput.style.left = "0";    // Make it visible temporarily (still transparent)
-    mobileInput.style.top = "0";     // Position it back in the box
     mobileInput.focus();
   });
 
-  // auto-focus for mobile
+  // auto-focus for mobile, ensure click focus works
   box.click();
 })();
 </script>
+
 
 
 
