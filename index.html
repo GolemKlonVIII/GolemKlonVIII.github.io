@@ -22,17 +22,17 @@
   <img src="7.gif" alt="GolemKlonVIII _2" style="width:800px;height:150px;">
 
 
-<div id="terminalBox" style="width:400px;height:400px;background:black;color:lime;padding:10px;font-family:monospace;overflow:auto;">
+  <div id="terminalBox" style="width:400px;height:400px;background:black;color:lime;padding:10px;font-family:monospace;overflow:auto;">
   <pre id="terminal">
-GolemKlonVIII Terminal [Versin 24_57_.88888.2023|
-(c) GolemKlonVIII. All rights reserved.
+GolemKlonVIII Terminal [Versin 24_58_.88888.2023|
+(c) golemklonVIII. All rights reserved.
 
   </pre>
 </div>
 
-<!-- Hidden input field positioned at the bottom of the terminal -->
+<!-- Invisible input field -->
 <input id="mobileInput" autocomplete="off" autocorrect="off" autocapitalize="off"
-style="opacity:0; position:absolute; bottom:0; width:100%; background:none; color:lime; border:none; font-family:monospace;">
+style="position:absolute; left:-9999px; top:-9999px; width:1px; height:1px; opacity:0; border:none; background:none;">
 
 <script>
 (function(){
@@ -191,14 +191,15 @@ Type 'help' for options.
 
   // clicking the terminal activates the input and shows the keyboard
   box.addEventListener("click", () => {
-    mobileInput.style.opacity = "1";  // Show the hidden input to focus it
+    mobileInput.style.opacity = "1";  // Invisible, but still focusable
     mobileInput.focus();
   });
 
-  // auto-focus for mobile, ensure click focus works
+  // auto-focus for mobile
   box.click();
 })();
 </script>
+
 
 
 
