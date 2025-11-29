@@ -30,9 +30,9 @@ GolemKlonVIII Terminal [Versin 24_57_.88888.2023|
 </pre>
 </div>
 
-<!-- Hidden input to trigger mobile keyboard -->
+<!-- Input now visible on mobile, still transparent -->
 <input id="mobileInput" autocomplete="off" autocorrect="off" autocapitalize="off"
-style="opacity:0; position:absolute; left:-9999px;">
+style="opacity:0; position:absolute; left:-9999px; top:-9999px;">
 
 <script>
 (function(){
@@ -189,8 +189,11 @@ Type 'help' for options.
     }
   });
 
-  // clicking the terminal activates keyboard
+  // clicking the terminal activates the input and shows the keyboard
   box.addEventListener("click", () => {
+    mobileInput.style.opacity = "1";  // Show the hidden input to focus it
+    mobileInput.style.left = "0";    // Make it visible temporarily (still transparent)
+    mobileInput.style.top = "0";     // Position it back in the box
     mobileInput.focus();
   });
 
@@ -198,6 +201,7 @@ Type 'help' for options.
   box.click();
 })();
 </script>
+
 
 
 
